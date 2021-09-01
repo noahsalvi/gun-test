@@ -36,6 +36,7 @@
   {#each messages as [key, message]}
     <div>
       - {new Date(message.timestamp).toLocaleTimeString()} | {message.text}
+      <span>{message.userAgent}</span>
     </div>
   {/each}
 </div>
@@ -58,5 +59,9 @@
   input {
     margin-top: 10px;
     width: 100%;
+  }
+
+  span {
+    color: rgb(188, 225, 238);
   }
 </style>
