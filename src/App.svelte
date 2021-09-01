@@ -24,10 +24,12 @@
       text,
       timestamp: Date.now(),
     };
+
     gun.get("messages").set(message);
+    text = "";
   };
 
-  $: messages = Object.entries<any>(messagesStore);
+  $: messages = Object.entries<any>(messagesStore).reverse();
 </script>
 
 <div class="chat">
@@ -48,6 +50,9 @@
     padding: 10px;
     border-radius: 5px;
     height: 300px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column-reverse;
   }
 
   input {
