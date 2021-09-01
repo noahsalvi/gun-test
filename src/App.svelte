@@ -1,5 +1,6 @@
 <script lang="ts">
   import Gun from "gun/gun";
+  import "gun/axe";
   import { onMount } from "svelte";
 
   const gun = Gun();
