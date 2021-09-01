@@ -62,6 +62,6 @@
   }
 
   span {
-    color: rgb(188, 225, 238);
+    color: rgb(213, 245, 255);
   }
 </style>
