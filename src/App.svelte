@@ -8,13 +8,24 @@
   let text: string;
   let messagesStore = {};
 
+  function hash(str) {
+    str ||= "";
+
+    return str
+      .split("")
+      .reduce(
+        (prevHash, currVal) =>
+          ((prevHash << 5) - prevHash + currVal.charCodeAt(0)) | 0,
+        0
+      );
+  }
+
   onMount(() => {
     gun
       .get("messages")
       .map()
       .on((data, key) => {
         messagesStore[key] = data;
-        console.log(data);
       });
   });
 
@@ -34,9 +45,12 @@
 
 <div class="chat">
   {#each messages as [key, message]}
-    <div>
-      - {new Date(message.timestamp).toLocaleTimeString()} | {message.text}
-      <span>{message.userAgent}</span>
+    <div class="message">
+      {new Date(message.timestamp).toLocaleTimeString()}
+      <span>#{message.userAgent ? hash(message.userAgent) : "No Agent"}</span>
+      <div>
+        {message.text || "[Empty]"}
+      </div>
     </div>
   {/each}
 </div>
@@ -50,10 +64,14 @@
     background: whitesmoke;
     padding: 10px;
     border-radius: 5px;
-    height: 300px;
+    height: 50vh;
     overflow-y: auto;
     display: flex;
     flex-direction: column-reverse;
+  }
+
+  .message {
+    margin-top: 10px;
   }
 
   input {
@@ -62,6 +80,7 @@
   }
 
   span {
-    color: rgb(213, 245, 255);
+    margin-left: 10px;
+    color: rgb(187, 185, 185);
   }
 </style>
